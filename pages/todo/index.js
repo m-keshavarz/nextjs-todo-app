@@ -50,7 +50,7 @@ export default function ToDo({ data }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const data = await axios.get(
     "https://616eaa7f715a630017b3975c.mockapi.io/tasks2"
   );
