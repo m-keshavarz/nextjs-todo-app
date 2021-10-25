@@ -5,10 +5,12 @@ import axios from "axios";
 import Task from "../../components/task";
 import { getAPI } from "../api/api";
 
-
-
 export default function ToDo({ data }) {
   const [inputChange, setInputChange] = useState("");
+
+  const handleAddTask = () => {
+
+  }
 
   return (
     <>
@@ -22,7 +24,7 @@ export default function ToDo({ data }) {
           className="border-2 rounded-xl ml-4 pl-4 text-black text-lg mr-4 focus:border-2 focus:rounded-xl outline-none"
           onChange={e => setInputChange(e.target.value)}
         />
-        <button className="bg-green-600 text-white text-lg w-20 rounded-xl">
+        <button className="bg-green-600 text-white text-lg w-20 rounded-xl" onClick={handleAddTask}>
           Add
         </button>
       </div>
@@ -35,6 +37,8 @@ export default function ToDo({ data }) {
                 name={item.name}
                 createdAt={item.createdAt}
                 task={item.task}
+                pathname={`/todo/tid`}
+                id={item.id}
               />
             );
           })}
@@ -50,14 +54,13 @@ export default function ToDo({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const data = await axios.get(
-    "https://616eaa7f715a630017b3975c.mockapi.io/tasks2"
-  );
+export async function getStaticProps() {
+  const data = await getAPI('/tasks2')
 
   return {
     props: {
       data: data.data
-    }
+    },
+    revalidate: 3
   };
 }
