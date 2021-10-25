@@ -1,16 +1,20 @@
 import Link from "next/link";
 import { useState } from "react";
-import axios from "axios";
 
 import Task from "../../components/task";
-import { getAPI } from "../api/api";
+import { getAPI, postAPI } from "../api/api";
 
 export default function ToDo({ data }) {
   const [inputChange, setInputChange] = useState("");
 
   const handleAddTask = () => {
-
-  }
+    postAPI("/tasks2", {
+      name: "mohamad keshavarz",
+      createdAt: 'just now',
+      task: inputChange,
+      id: '4884'
+    });
+  };
 
   return (
     <>
@@ -24,7 +28,10 @@ export default function ToDo({ data }) {
           className="border-2 rounded-xl ml-4 pl-4 text-black text-lg mr-4 focus:border-2 focus:rounded-xl outline-none"
           onChange={e => setInputChange(e.target.value)}
         />
-        <button className="bg-green-600 text-white text-lg w-20 rounded-xl" onClick={handleAddTask}>
+        <button
+          className="bg-green-600 text-white text-lg w-20 rounded-xl"
+          onClick={handleAddTask}
+        >
           Add
         </button>
       </div>
@@ -55,12 +62,12 @@ export default function ToDo({ data }) {
 }
 
 export async function getStaticProps() {
-  const data = await getAPI('/tasks2')
+  const data = await getAPI("/tasks2");
 
   return {
     props: {
       data: data.data
     },
-    revalidate: 3
+    revalidate: 10
   };
 }

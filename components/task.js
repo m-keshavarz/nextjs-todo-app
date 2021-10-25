@@ -23,7 +23,8 @@ export default function Task({ createdAt, name, task, pathname, id }) {
         createdAt,
         id
       }
-    }}>
+    }}
+    passHref>
       <div
         className="p-4 text-xs text-blue-300 border-2 shadow-lg flex flex-col ml-4 mt-4 hover:scale-105 hover:cursor-pointer transition duration-300 ease-in-out hover:shadow-2xl"
         // ref={ref}
